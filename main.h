@@ -8,6 +8,8 @@
 #include <stdlib.h>
 
 /**
+* struct sample - checks for function and operators
+*
 * @f: is the function
 * @op: is the operator
 */
