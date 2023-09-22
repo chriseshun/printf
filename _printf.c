@@ -1,63 +1,56 @@
 #include "main.h"
-#include <stdarg.h>
-#include <stdio.h>
 
+/**
+ * _printf - Prints formatted output according to a format string.
+ * @format: A character string containing format specifiers.
+ *
+ * Return: The number of characters printed, or -1 on error.
+ */
 int _printf(const char *format, ...)
 {
-	va_list arg_list;
-
-	va_start(arg_list, format);
+	if (format == NULL)
+		return (-1);
 
 	int ch_print = 0;
 
+	va_list args;
+
+	va_start(args, format);
+
 	while (*format)
 	{
-		if (*format == '%')
+		if (*format != '%')
+		{
+			_putchar(*format);
+			ch_print++;
+		}
+		else
 		{
 			format++;
+			if (*format == '\0')
+				return (-1);
+			int i;
+
 			int found = 0;
 
-			format_entry format_list[] = {
-				{"%c", print_char},
-				{"%s", print_string},
-				{"%%", print_percent},
-				{"%d", print_integer},
-				{"%i", print_integer},
-				{"%b", print_binary},
-				{"%u", unsigned_integer},
-				{"%o", print_octal},
-				{"%x", print_hexlower},
-				{"%X", print_heXupper},
-				{"%r", print_reverser},
-				{"%R", rot13},
-				{NULL, NULL}
-			};
-
-			for (int i = 0; format_list[i].format != NULL; i++)
+			for (i = 0; f_list[i].specifier != NULL; i++)
 			{
-				if (strcmp(format, format_list[i].format) == 0)
+				if (*format == *(f_list[i].specifier))
 				{
-					ch_print += format_list[i].func(arg_list);
+					ch_print += f_list[i].printer(args);
 					found = 1;
 					break;
 				}
 			}
-
 			if (!found)
 			{
-				putchar('%');
-				putchar(*format);
+				_putchar('%');
+				_putchar(*format);
 				ch_print += 2;
 			}
 		}
-		else
-		{
-			putchar(*format);
-			ch_print++;
-		}
 		format++;
 	}
-
-	va_end(arg_list);
+	va_end(args);
 	return (ch_print);
 }
