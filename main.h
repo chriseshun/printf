@@ -1,12 +1,12 @@
-#include "main.h"
+#ifndef _MAIN_H
+#define _MAIN_H
 
-/**
- * _putchar_ - writes the character c to stdout
- * @c: The character to print
- *
- * Return: 1 (Success) and -1 prints (Error)
- */
-int _putchar_(char c)
-{
-	return (write(1, &c, 1));
-}
+#include <stdarg.h>
+#include <unistd.h>
+#include <stdlib.h>
+
+int our_putchar(char c);
+int _printf(const char *format, ...);
+int my_puts(char *c);
+
+#endif
