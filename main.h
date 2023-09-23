@@ -16,8 +16,8 @@
 
 struct sample
 {
-	char *op;
-	int (*f)(va_list);
+	char *specifier;
+	int (*f)(va_list args);
 };
 typedef struct sample sample_t;
 
@@ -30,7 +30,7 @@ int print_hexlower(va_list list);
 int print_heXupper(va_list list);
 int print_S(va_list list);
 int prints_ptr(va_list list);
-int _putchar_(char);
+int _putchar_(char c);
 int _printf(const char *format, ...);
 int parse(const char *format, sample_t f_list[], va_list arg_list);
 int print_char(va_list);

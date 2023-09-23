@@ -8,49 +8,66 @@
  */
 int _printf(const char *format, ...)
 {
-	if (format == NULL)
-		return (-1);
+    if (format == NULL)
+        return (-1);
 
-	int ch_print = 0;
+    va_list args;
+    va_start(args, format);
 
-	va_list args;
+    int ch_print = 0;
+    int i;
+    int found = 0;
 
-	va_start(args, format);
+    specifier_t f_list[] = {
+        {"c", print_char},
+        {"s", print_string},
+        {"%", print_percent},
+        {"d", print_integer},
+        {"i", print_integer},
+        {"b", print_binary},
+        {"u", unsigned_integer},
+        {"o", print_octal},
+        {"x", print_hexlower},
+        {"X", print_heXupper},
+        {"r", print_reverser},
+        {"R", rot13},
+        {NULL, NULL}
+    };
 
-	while (*format)
-	{
-		if (*format != '%')
-		{
-			_putchar(*format);
-			ch_print++;
-		}
-		else
-		{
-			format++;
-			if (*format == '\0')
-				return (-1);
-			int i;
+    while (*format)
+    {
+        if (*format != '%')
+        {
+            _putchar(*format);
+            ch_print++;
+        }
+        else
+        {
+            format++;
+            if (*format == '\0')
+                return (-1);
 
-			int found = 0;
+            found = 0;
 
-			for (i = 0; f_list[i].specifier != NULL; i++)
-			{
-				if (*format == *(f_list[i].specifier))
-				{
-					ch_print += f_list[i].printer(args);
-					found = 1;
-					break;
-				}
-			}
-			if (!found)
-			{
-				_putchar('%');
-				_putchar(*format);
-				ch_print += 2;
-			}
-		}
-		format++;
-	}
-	va_end(args);
-	return (ch_print);
+            for (i = 0; f_list[i].specifier != NULL; i++)
+            {
+                if (*format == *(f_list[i].specifier))
+                {
+                    ch_print += f_list[i].printer(args);
+                    found = 1;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                _putchar('%');
+                _putchar(*format);
+                ch_print += 2;
+            }
+        }
+        format++;
+    }
+
+    va_end(args);
+    return (ch_print);
 }
