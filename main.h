@@ -1,50 +1,12 @@
-#ifndef MAIN_H
-#define MAIN_H
-
-#include <stdarg.h>
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include "main.h"
 
 /**
-* struct sample - checks for function and operators
-*
-* @f: is the function
-* @op: is the operator
-*/
-
-struct sample
+ * _putchar_ - writes the character c to stdout
+ * @c: The character to print
+ *
+ * Return: 1 (Success) and -1 prints (Error)
+ */
+int _putchar_(char c)
 {
-	char *specifier;
-	int (*f)(va_list args);
-};
-typedef struct sample sample_t;
-
-/** Main functions **/
-int print_reverser(va_list arg);
-int rot13(va_list);
-int unsigned_integer(va_list);
-int print_octal(va_list list);
-int print_hexlower(va_list list);
-int print_heXupper(va_list list);
-int print_S(va_list list);
-int prints_ptr(va_list list);
-int _putchar_(char c);
-int _printf(const char *format, ...);
-int parse(const char *format, sample_t f_list[], va_list arg_list);
-int print_char(va_list);
-int print_string(va_list);
-int print_percent(va_list);
-int print_integer(va_list);
-int print_number(va_list);
-int print_binary(va_list);
-
-/** Extra functions **/
-unsigned int base_len(unsigned int, int);
-char *rev_string(char *);
-void write_base(char *str);
-char *_memcpy(char *dest, char *src, unsigned int n);
-int print_unsgined_number(unsigned int);
-
-#endif
+	return (write(1, &c, 1));
+}
